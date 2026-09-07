@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>SHW-TX-001 · Sherwin Williams Potranco · Project Status</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Sherwin-Williams palette */
+    --bg: #F4F6F8;
+    --paper: #FFFFFF;
+    --ink: #14202B;
+    --ink-2: #2E3B45;
+    --ink-3: #5C6873;
+    --ink-4: #9AA5AE;
+    --rule: #DEE4EA;
+    --rule-2: #EBEFF3;
+    --accent: #0060A9;          /* SW corporate blue */
+    --accent-ink: #004A80;
+    --accent-wash: #E4EFF8;
+    --accent-2: #E4002B;        /* SW "Cover the Earth" red */
+    --ok: #1F7A4D;
+    --card-navy: #24465D;        /* dark-blue details within summary cards */
+    --card-blue: #0060A9;        /* lighter-blue summary-card background */
+    --card-orange: #F2A23A;      /* emphasis text within summary cards */
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #E7EBEF; }
+  body {
+    font-family: 'Inter', -apple-system, system-ui, sans-serif;
+    color: var(--ink);
+    font-size: 9pt;
+    line-height: 1.4;
+    -webkit-font-smoothing: antialiased;
+    padding: 32px 16px 64px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .page {
+    width: 8.5in;
+    min-height: 11in;
+    background: var(--paper);
+    padding: 0.4in 0.5in 0.35in;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.04), 0 20px 48px -24px rgba(20,32,43,0.25);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* =========== HEADER =========== */
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .brand { display: flex; align-items: center; gap: 10px; }
+  .brand-mark {
+    width: 28px; height: 28px;
+    border: 1.5px solid var(--ink);
+    display: grid; place-items: center;
+    position: relative;
+  }
+  .brand-mark::before {
+    content: ""; position: absolute; inset: 4px; background: var(--ink);
+  }
+  .brand-mark::after {
+    content: ""; position: absolute;
+    width: 7px; height: 7px; background: var(--paper);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+  .brand-text { line-height: 1.1; }
+  .brand-name {
+    font-family: 'Fraunces', serif;
+    font-weight: 500; font-size: 11.5pt; letter-spacing: -0.01em;
+  }
+  .brand-sub {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 6.5pt; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--ink-3); margin-top: 2px;
+  }
+
+  .doc-meta {
+    text-align: right;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 7pt; letter-spacing: 0.05em; color: var(--ink-3); line-height: 1.6;
+  }
+  .doc-meta strong { color: var(--ink); font-weight: 500; }
+  .status-pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 3px 8px;
+    background: var(--accent-wash); color: var(--accent-ink);
+    border: 1px solid color-mix(in oklch, var(--accent) 20%, transparent);
+    border-radius: 2px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 6.5pt; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .status-pill .dot {
+    width: 6px; height: 6px; background: var(--accent); border-radius: 50%;
+    box-shadow: 0 0 0 3px color-mix(in oklch, var(--accent) 15%, transparent);
+  }
+
+  /* =========== TITLE BLOCK =========== */
+  .title-block {
+    padding: 12px 0 10px;
+    display: grid; grid-template-columns: 1fr auto;
+    align-items: end; gap: 24px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 7.5pt; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--ink-3); margin-bottom: 6px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .eyebrow .code { color: var(--accent); font-weight: 600; }
+  .eyebrow .bar { flex: 0 0 24px; height: 1px; background: var(--ink-4); }
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 400; font-size: 24pt; line-height: 1.0;
+    letter-spacing: -0.02em; margin: 0; color: var(--ink);
+  }
+  h1 em { font-style: italic; color: var(--accent); }
+  .subtitle {
+    font-size: 9pt; color: var(--ink-2); margin-top: 8px; max-width: 440px;
+  }
+  .title-side {
+    text-align: right;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 6.5pt; color: var(--ink-3); line-height: 1.55;
+  }
+  .title-side .val {
+    font-size: 8.5pt; color: var(--ink); font-weight: 500;
+    letter-spacing: 0; font-family: 'Inter', sans-serif;
+  }
+
+  /* =========== SECTION CHROME =========== */
+  .section { padding: 7px 0; border-bottom: 1px solid var(--rule); }
+  .section:last-of-type { border-bottom: 0; }
+  .section-head {
+    display: flex; align-items: baseline; gap: 10px; margin-bottom: 6px;
+  }
+  .section-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 7pt; color: var(--accent); letter-spacing: 0.1em; font-weight: 500;
+  }
+  .section-title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600; font-size: 8pt; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--ink); white-space: nowrap;
+  }
+  .section-rule { flex: 1; height: 1px; background: var(--rule); }
+
+  /* =========== SNAPSHOT TILES =========== */
+  .tiles {
+    display: grid; grid-template-columns: repeat(5, 1fr);
+    border: 1px solid var(--rule); background: var(--rule); column-gap: 1px;
+  }
+  .tile {
+    background: var(--paper); padding: 8px 10px;
+    display: flex; flex-direction: column; gap: 4px;
+    min-height: 58px; position: relative;
+  }
+  .tile-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 6pt; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-3);
+  }
+  .tile-val {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500; font-size: 9.5pt; line-height: 1.2;
+    color: var(--ink); letter-spacing: -0.01em; margin-top: auto;
+  }
+  .tile-val small {
+    display: block; font-weight: 400; font-size: 7.5pt;
+    color: var(--ink-3); margin-top: 2px; letter-spacing: 0;
+  }
+  .tile-icon { width: 14px; height: 14px; border: 1.25px solid var(--ink-2); position: relative; }
+  .tile[data-icon="tenant"] .tile-icon { border-radius: 50%; }
+  .tile[data-icon="tenant"] .tile-icon::after {
+    content: ""; position: absolute; inset: 2px; background: var(--accent); border-radius: 50%;
+  }
+  .tile[data-icon="building"] .tile-icon::after {
+    content: ""; position: absolute; left: 2px; right: 2px; bottom: 2px; height: 3px; background: var(--ink-2);
+  }
+  .tile[data-icon="delivery"] .tile-icon { border: none; }
+  .tile[data-icon="delivery"] .tile-icon::before {
+    content: ""; position: absolute; left: 0; top: 50%;
+    width: 12px; height: 1.25px; background: var(--ink-2); transform: translateY(-50%);
+  }
+  .tile[data-icon="delivery"] .tile-icon::after {
+    content: ""; position: absolute; right: 0; top: 50%;
+    width: 6px; height: 6px;
+    border-top: 1.25px solid var(--ink-2); border-right: 1.25px solid var(--ink-2);
+    transform: translateY(-50%) rotate(45deg);
+  }
+  .tile[data-icon="gc"] .tile-icon { transform: rotate(45deg); }
+  .tile[data-icon="location"] .tile-icon { border-radius: 50% 50% 50% 0; transform: rotate(-45deg); }
+
+  /* =========== SCHEDULE TIMELINE =========== */
+  .timeline-rail { position: relative; height: 48px; margin: 6px 0 0; }
+  .rail-line { position: absolute; top: 8px; left: 6px; right: 6px; height: 2px; background: var(--rule); }
+  .rail-progress {
+    position: absolute; top: 8px; left: 6px;
+    width: calc((100% - 12px) * 0.20); /* current schedule rail through M2 */
+    height: 2px; background: var(--accent);
+  }
+  .milestones { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(6, 1fr); }
+  .ms { position: relative; display: flex; flex-direction: column; align-items: flex-start; padding-left: 2px; }
+  .ms-dot {
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--paper); border: 2px solid var(--ink-4); margin-left: 1px; z-index: 2;
+  }
+  .ms.done .ms-dot { background: var(--accent); border-color: var(--accent); }
+  .ms.current .ms-dot {
+    background: var(--paper); border-color: var(--accent);
+    box-shadow: 0 0 0 3px color-mix(in oklch, var(--accent) 18%, transparent);
+  }
+  .ms-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 6pt; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ink-3); margin-top: 8px; line-height: 1.3;
+  }
+  .ms.current .ms-label, .ms.done .ms-label { color: var(--ink); }
+  .ms-date {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500; font-size: 8pt; color: var(--ink); margin-top: 2px; letter-spacing: -0.01em;
+  }
+  .ms-status {
+    display: block; margin-top: 1px;
+    font-family: 'IBM Plex Mono', monospace; font-size: 5.5pt; font-weight: 500;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3);
+  }
+  .ms.current .ms-status { color: var(--accent); }
+
+  /* =========== STATUS =========== */
+  .status-grid { display: grid; grid-template-columns: 1.1fr 1.3fr; gap: 16px; }
+  .status-card {
+    background: var(--card-blue); color: var(--paper);
+    padding: 10px 12px; position: relative;
+    display: flex; flex-direction: column; gap: 7px;
+  }
+  .status-card::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--card-navy);
+  }
+  .sc-row { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+  .sc-row .lbl {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 6.5pt; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.55);
+  }
+  .sc-row .val { font-family: 'Inter', sans-serif; font-size: 9pt; font-weight: 500; color: var(--paper); }
+  .sc-row .val.ok { color: #8BD3A3; }
+  .sc-row .val.watch { color: #F2C14E; }
+  .sc-big { display: flex; align-items: baseline; gap: 10px; }
+  .sc-big .num {
+    font-family: 'Fraunces', serif;
+    font-size: 28pt; font-weight: 400; color: var(--card-orange); line-height: 0.95; letter-spacing: -0.02em;
+  }
+  .sc-big .cap {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 7pt; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.6); line-height: 1.3;
+  }
+  .sc-bar { height: 4px; background: rgba(255,255,255,0.12); position: relative; }
+  .sc-bar::after {
+    content: ""; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 38%; /* schedule-time calculation: Day 54 of 143 */ background: var(--card-navy);
+  }
+
+  .phases { display: flex; flex-direction: column; gap: 4px; }
+  .phase {
+    display: grid; grid-template-columns: 14px 1fr auto auto; gap: 8px;
+    align-items: center; padding: 2px 0; font-size: 8pt; border-bottom: 1px dotted var(--rule-2);
+  }
+  .phase:last-child { border-bottom: 0; }
+  .phase .no { font-family: 'IBM Plex Mono', monospace; font-size: 6.5pt; color: var(--ink-4); letter-spacing: 0.08em; }
+  .phase .name { font-weight: 500; color: var(--ink-2); }
+  .phase.done .name { color: var(--ink); }
+  .phase.active .name { color: var(--accent-ink); font-weight: 600; }
+  .phase .pct { font-family: 'IBM Plex Mono', monospace; font-size: 7pt; color: var(--ink-3); width: 36px; text-align: right; }
+  .phase.active .pct { color: var(--accent); }
+  .phase .state {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 6pt; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 2px 6px; border: 1px solid var(--rule); color: var(--ink-4); min-width: 90px; text-align: center;
+  }
+  .phase.active .state {
+    background: var(--accent-wash);
+    border-color: color-mix(in oklch, var(--accent) 25%, transparent); color: var(--accent-ink);
+  }
+  .phase.done .state { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+
+  /* =========== ACTIVE WORK =========== */
+  .work-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .work-col h4 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 6.5pt; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-3);
+    margin: 0 0 6px; font-weight: 500; padding-bottom: 4px; border-bottom: 1px solid var(--rule);
+    display: flex; justify-content: space-between;
+  }
+  .work-col h4 .tag { color: var(--accent); }
+  .work-col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 3px; }
+  .work-col li {
+    display: grid; grid-template-columns: 14px 1fr auto; gap: 6px;
+    align-items: baseline; padding: 2px 0; font-size: 8.5pt; line-height: 1.35;
+  }
+  .work-col .ck { width: 10px; height: 10px; border: 1px solid var(--ink-4); position: relative; transform: translateY(1px); }
+  .work-col.left .ck { background: var(--ink); border-color: var(--ink); }
+  .work-col.left .ck::after {
+    content: ""; position: absolute; left: 1px; top: -1px;
+    width: 4px; height: 7px; border-right: 1.5px solid var(--paper); border-bottom: 1.5px solid var(--paper); transform: rotate(45deg);
+  }
+  .work-col.right .ck { border-color: var(--accent); }
+  .work-col.right .ck::after { content: ""; position: absolute; inset: 2px; background: var(--accent); }
+  .work-col .dt { font-family: 'IBM Plex Mono', monospace; font-size: 6.5pt; letter-spacing: 0.08em; color: var(--ink-4); text-transform: uppercase; }
+
+  /* =========== KEY DATES =========== */
+  .keydates { display: grid; grid-template-columns: repeat(6, 1fr); border: 1px solid var(--rule); background: var(--rule); column-gap: 1px; }
+  .kd { background: var(--paper); padding: 7px 9px; display: flex; flex-direction: column; gap: 2px; min-height: 48px; position: relative; }
+  .kd .kd-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 5.75pt; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); line-height: 1.35;
+  }
+  .kd .kd-date { font-family: 'Inter', sans-serif; font-weight: 500; font-size: 9pt; color: var(--ink); letter-spacing: -0.01em; margin-top: auto; }
+  .kd.hi { background: var(--card-blue); color: var(--paper); }
+  .kd.hi .kd-label { color: rgba(255,255,255,0.55); }
+  .kd.hi .kd-date { color: var(--card-orange); }
+  .kd.hi .kd-star {
+    position: absolute; top: 6px; right: 8px;
+    font-family: 'IBM Plex Mono', monospace; font-size: 7pt; color: var(--accent-2); line-height: 1;
+  }
+
+  /* =========== ISSUES / WATCH =========== */
+  .issues { display: flex; flex-direction: column; gap: 4px; }
+  .issue {
+    display: grid; grid-template-columns: auto 1fr auto; gap: 8px; align-items: baseline;
+    padding: 3px 0; font-size: 8.5pt; border-bottom: 1px dotted var(--rule-2);
+  }
+  .issue:last-child { border-bottom: 0; }
+  .issue .flag {
+    font-family: 'IBM Plex Mono', monospace; font-size: 6pt; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 2px 6px; border-radius: 2px; min-width: 62px; text-align: center;
+  }
+  .issue .flag.open { background: var(--accent-wash); color: var(--accent-ink); border: 1px solid color-mix(in oklch, var(--accent) 22%, transparent); }
+  .issue .flag.risk { background: #FCE7E9; color: #A31021; border: 1px solid color-mix(in oklch, var(--accent-2) 25%, transparent); }
+  .issue .txt { color: var(--ink-2); }
+  .issue .own { font-family: 'IBM Plex Mono', monospace; font-size: 6.5pt; color: var(--ink-4); text-transform: uppercase; letter-spacing: 0.06em; }
+
+  /* =========== CONTACTS =========== */
+  .contacts { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+  .contact { padding: 7px 14px; border-left: 1px solid var(--rule); }
+  .contact:first-child { border-left: 0; padding-left: 0; }
+  .contact-role { font-family: 'IBM Plex Mono', monospace; font-size: 6.5pt; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
+  .contact-name { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 9.5pt; color: var(--ink); letter-spacing: -0.01em; }
+  .contact-org { font-size: 7.5pt; color: var(--ink-3); margin-top: 1px; }
+  .contact-line { font-family: 'IBM Plex Mono', monospace; font-size: 6.5pt; color: var(--ink-3); margin-top: 5px; line-height: 1.6; }
+  .contact-line .em { color: var(--accent-ink); }
+
+  /* =========== FOOTER =========== */
+  .footer { margin-top: auto; padding-top: 8px; border-top: 2px solid var(--ink); display: flex; justify-content: space-between; align-items: flex-end; }
+  .footer-brand { display: flex; align-items: center; gap: 8px; }
+  .footer-brand .mk { width: 18px; height: 18px; border: 1.25px solid var(--ink); position: relative; }
+  .footer-brand .mk::before { content: ""; position: absolute; inset: 3px; background: var(--ink); }
+  .footer-brand .wm { font-family: 'Fraunces', serif; font-weight: 500; font-size: 8pt; color: var(--ink); line-height: 1.2; }
+  .footer-brand .wm small { display: block; font-family: 'IBM Plex Mono', monospace; font-weight: 400; font-size: 5.5pt; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-3); margin-top: 2px; }
+  .footer-legal { text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 6pt; letter-spacing: 0.06em; color: var(--ink-3); line-height: 1.7; }
+  .footer-legal .conf { color: var(--accent-2); font-weight: 500; }
+
+  .print-note { display: none; }
+
+  @media print {
+    html, body {
+      background: #fff;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    * {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    body {
+      padding: 0;
+      display: block;
+      font-size: 8.4pt;
+      line-height: 1.25;
+    }
+    .page {
+      box-shadow: none;
+      width: 8.22in;
+      min-height: auto;
+      margin: 0.06in auto;
+      padding: 0.20in 0.24in 0.18in;
+      display: block;
+    }
+    .topbar {
+      padding-bottom: 6px;
+    }
+    .title-block {
+      padding: 7px 0 6px;
+      gap: 12px;
+    }
+    h1 {
+      font-size: 21pt;
+    }
+    .brand-name { font-size: 10.75pt; }
+    .brand-sub,
+    .doc-meta,
+    .title-side,
+    .section-num,
+    .section-title,
+    .tile-label,
+    .ms-label,
+    .work-col h4,
+    .kd .kd-label,
+    .contact-role,
+    .contact-line,
+    .footer-brand .wm small,
+    .footer-legal {
+      font-size: 95%;
+    }
+    .section {
+      padding: 3px 0;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .section-head {
+      margin-bottom: 3px;
+    }
+    .tiles,
+    .keydates,
+    .status-grid,
+    .work-cols,
+    .contacts {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .tile {
+      min-height: 50px;
+      padding: 5px 6px;
+    }
+    .timeline-rail {
+      height: 44px;
+      margin-top: 2px;
+    }
+    .ms {
+      padding-right: 6px;
+    }
+    .ms-label {
+      margin-top: 4px;
+      font-size: 5.3pt;
+      letter-spacing: 0.07em;
+      line-height: 1.08;
+    }
+    .ms-date {
+      font-size: 7.3pt;
+    }
+    .status-grid {
+      gap: 8px;
+    }
+    .status-card {
+      padding: 8px 9px;
+      gap: 4px;
+    }
+    .sc-big .num {
+      font-size: 23pt;
+    }
+    .phases {
+      gap: 1px;
+    }
+    .phase {
+      padding: 0;
+      gap: 5px;
+      font-size: 7.8pt;
+    }
+    .work-cols {
+      gap: 8px;
+    }
+    .work-col h4 {
+      margin-bottom: 3px;
+      padding-bottom: 2px;
+    }
+    .work-col ul {
+      gap: 1px;
+    }
+    .work-col li {
+      padding: 0;
+      font-size: 7.6pt;
+      line-height: 1.16;
+    }
+    .keydates {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+    .kd {
+      min-height: 42px;
+      padding: 5px 5px;
+    }
+    .issues {
+      gap: 2px;
+    }
+    .issue {
+      padding: 1px 0;
+      font-size: 7.2pt;
+    }
+    .contacts {
+      margin-top: 1px;
+    }
+    .contact {
+      padding: 5px 6px;
+    }
+    .contact:first-child {
+      padding-left: 0;
+    }
+    .footer {
+      margin-top: 3px;
+      padding-top: 3px;
+    }
+    @page { size: letter; margin: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- Top utility bar -->
+  <div class="topbar">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true"></div>
+      <div class="brand-text">
+        <div class="brand-name">Baseline</div>
+        <div class="brand-sub">Development Companies</div>
+      </div>
+    </div>
+    <div class="doc-meta">
+      <div><strong>CONSTRUCTION STATUS</strong></div>
+      <div>Issued <span style="color:var(--ink)">09 / 04 / 2026</span></div>
+      <div style="margin-top:4px"><span class="status-pill"><span class="dot"></span>Active · Structural Framing, Utilities &amp; Sitework</span></div>
+    </div>
+  </div>
+
+  <!-- Title -->
+  <div class="title-block">
+    <div>
+      <div class="eyebrow">
+        <span class="bar"></span>
+        <span class="code">SHW-TX-001</span>
+        <span>· Ground-Up Retail Development</span>
+      </div>
+      <h1>Sherwin&#8209;Williams <em>Potranco</em></h1>
+      <div class="subtitle">Wall panels and roof trusses were delivered this week. Erection is underway, and the building is going vertical. Site utility and driveway preparation also advanced.</div>
+    </div>
+    <div class="title-side">
+      <div>SITE</div>
+      <div class="val">923 SH 211</div>
+      <div class="val">San Antonio, TX</div>
+      <div style="margin-top:6px">LANDLORD</div>
+      <div class="val">SATXDG, LLC</div>
+    </div>
+  </div>
+
+  <!-- 01 · SNAPSHOT -->
+  <section class="section">
+    <div class="section-head">
+      <span class="section-num">01</span>
+      <span class="section-title">Project Snapshot</span>
+      <span class="section-rule"></span>
+    </div>
+    <div class="tiles">
+      <div class="tile" data-icon="tenant">
+        <div class="tile-icon"></div>
+        <div class="tile-label">Tenant</div>
+        <div class="tile-val">Sherwin<small>Williams</small></div>
+      </div>
+      <div class="tile" data-icon="building">
+        <div class="tile-icon"></div>
+        <div class="tile-label">Building Type</div>
+        <div class="tile-val">Freestanding<small>Retail Shell</small></div>
+      </div>
+      <div class="tile" data-icon="delivery">
+        <div class="tile-icon"></div>
+        <div class="tile-label">Delivery</div>
+        <div class="tile-val">Ground-Up<small>Developer Delivered</small></div>
+      </div>
+      <div class="tile" data-icon="gc">
+        <div class="tile-icon"></div>
+        <div class="tile-label">General Contractor</div>
+        <div class="tile-val">Structura<small>General Contractor</small></div>
+      </div>
+      <div class="tile" data-icon="location">
+        <div class="tile-icon"></div>
+        <div class="tile-label">Location</div>
+        <div class="tile-val">San Antonio<small>Bexar County</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 · SCHEDULE -->
+  <section class="section">
+    <div class="section-head">
+      <span class="section-num">02</span>
+      <span class="section-title">Schedule Summary</span>
+      <span class="section-rule"></span>
+    </div>
+    <div class="timeline-rail">
+      <div class="rail-line"></div>
+      <div class="rail-progress"></div>
+      <div class="milestones">
+        <div class="ms done">
+          <div class="ms-dot"></div>
+          <div class="ms-label">M1 · Earthwork Start</div>
+          <div class="ms-date">Jul 13, 2026<span class="ms-status">Complete</span></div>
+        </div>
+        <div class="ms current">
+          <div class="ms-dot"></div>
+          <div class="ms-label">M2 · Site Concrete, Utilities &amp; Framing</div>
+          <div class="ms-date">Oct 1, 2026<span class="ms-status">In Progress</span></div>
+        </div>
+        <div class="ms">
+          <div class="ms-dot"></div>
+          <div class="ms-label">M3 · Building Dry-In</div>
+          <div class="ms-date">Oct 2, 2026<span class="ms-status">Not Started</span></div>
+        </div>
+        <div class="ms">
+          <div class="ms-dot"></div>
+          <div class="ms-label">M4 · Conditioned Building</div>
+          <div class="ms-date">Nov 2, 2026<span class="ms-status">Not Started</span></div>
+        </div>
+        <div class="ms">
+          <div class="ms-dot"></div>
+          <div class="ms-label">M5 · Paving Complete</div>
+          <div class="ms-date">Nov 17, 2026<span class="ms-status">Not Started</span></div>
+        </div>
+        <div class="ms">
+          <div class="ms-dot"></div>
+          <div class="ms-label">M6 · Completion</div>
+          <div class="ms-date">Dec 2, 2026<span class="ms-status">Not Started</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 · STATUS -->
+  <section class="section">
+    <div class="section-head">
+      <span class="section-num">03</span>
+      <span class="section-title">Current Status</span>
+      <span class="section-rule"></span>
+    </div>
+    <div class="status-grid">
+      <div class="status-card">
+        <div class="sc-row">
+        <span class="lbl">Schedule Time</span>
+        <span class="val ok">&#9679; On Track</span>
+      </div>
+      <div class="sc-big">
+        <span class="num">38%</span>
+        <span class="cap">Day 54<br>of 143</span>
+      </div>
+        <div class="sc-bar"></div>
+      </div>
+      <div class="phases">
+        <div class="phase done">
+          <span class="no">P1</span>
+          <span class="name">Mobilization &amp; Earthwork</span>
+          <span class="pct">100%</span>
+          <span class="state">Complete</span>
+        </div>
+        <div class="phase active">
+          <span class="no">P2</span>
+          <span class="name">Building Pad &amp; U/G Utilities</span>
+          <span class="pct">Active</span>
+          <span class="state">In Progress</span>
+        </div>
+        <div class="phase active">
+          <span class="no">P3</span>
+          <span class="name">Foundations, Slab &amp; Site Concrete</span>
+          <span class="pct">Active</span>
+          <span class="state">In Progress</span>
+        </div>
+        <div class="phase active">
+          <span class="no">P4</span>
+          <span class="name">Structural Shell &amp; Envelope</span>
+          <span class="pct">Active</span>
+          <span class="state">In Progress</span>
+        </div>
+        <div class="phase">
+          <span class="no">P5</span>
+          <span class="name">Roofing &amp; Sitework</span>
+          <span class="pct">—</span>
+          <span class="state">Not Started</span>
+        </div>
+        <div class="phase">
+          <span class="no">P6</span>
+          <span class="name">Closeout &amp; Delivery</span>
+          <span class="pct">—</span>
+          <span class="state">Not Started</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 · ACTIVE WORK -->
+  <section class="section">
+    <div class="section-head">
+      <span class="section-num">04</span>
+      <span class="section-title">Active Work</span>
+      <span class="section-rule"></span>
+    </div>
+    <div class="work-cols">
+      <div class="work-col left">
+        <h4><span>Completed · WE 09/04</span><span class="tag">09/04</span></h4>
+        <ul>
+          <li><span class="ck"></span><span>Wall panels and roof trusses delivered; erection underway</span><span class="dt">09/04</span></li>
+          <li><span class="ck"></span><span>Site electrical duct bank excavated and set for light poles and monument sign</span><span class="dt">09/04</span></li>
+          <li><span class="ck"></span><span>Site irrigation sleeves excavated and installed</span><span class="dt">09/04</span></li>
+          <li><span class="ck"></span><span>Driveway subbase finalized from SH 211 to the sewer lateral</span><span class="dt">09/04</span></li>
+        </ul>
+      </div>
+      <div class="work-col right">
+        <h4><span>Looking Ahead · Next Two Weeks</span><span class="tag">09/05 – 09/18</span></h4>
+        <ul>
+          <li><span class="ck"></span><span>Auger light-pole bases and tie in underground electrical</span><span class="dt">2 WKS</span></li>
+          <li><span class="ck"></span><span>Form curbs and driveway</span><span class="dt">2 WKS</span></li>
+          <li><span class="ck"></span><span>Advance underground utilities</span><span class="dt">2 WKS</span></li>
+          <li><span class="ck"></span><span>Complete driveway pre-pour preparation and concrete placement</span><span class="dt">2 WKS</span></li>
+          <li><span class="ck"></span><span>Continue wall framing and roof-truss erection</span><span class="dt">2 WKS</span></li>
+          <li><span class="ck"></span><span>Construct retaining walls</span><span class="dt">2 WKS</span></li>
+          <li><span class="ck"></span><span>Lay out roof penetrations and RTU curbs</span><span class="dt">2 WKS</span></li>
+          <li><span class="ck"></span><span>Advance toward waterproofing preparation</span><span class="dt">2 WKS</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 · KEY DATES / PERMITS -->
+  <section class="section">
+    <div class="section-head">
+      <span class="section-num">05</span>
+      <span class="section-title">Key Dates</span>
+      <span class="section-rule"></span>
+    </div>
+    <div class="keydates">
+      <div class="kd">
+        <div class="kd-label">Construction Start</div>
+        <div class="kd-date">Jul 13, 2026</div>
+      </div>
+      <div class="kd">
+        <div class="kd-label">Structural Framing Complete</div>
+        <div class="kd-date">Oct 01, 2026</div>
+      </div>
+      <div class="kd">
+        <div class="kd-label">Condition Building</div>
+        <div class="kd-date">Nov 02, 2026</div>
+      </div>
+      <div class="kd">
+        <div class="kd-label">Paving Complete</div>
+        <div class="kd-date">Nov 17, 2026</div>
+      </div>
+      <div class="kd hi">
+        <div class="kd-label">Certificate of Occupancy or TCO</div>
+        <div class="kd-date">Dec 02, 2026</div>
+      </div>
+      <div class="kd hi">
+        <span class="kd-star">&#9733;</span>
+        <div class="kd-label">Turnover</div>
+        <div class="kd-date">Dec 14, 2026</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 · CONTACTS -->
+  <section class="section" style="padding-bottom:0;">
+    <div class="section-head">
+      <span class="section-num">06</span>
+      <span class="section-title">Key Contacts</span>
+      <span class="section-rule"></span>
+    </div>
+    <div class="contacts">
+      <div class="contact">
+        <div class="contact-role">Landlord Rep / PM</div>
+        <div class="contact-name">Buck Culbreth</div>
+        <div class="contact-org">Baseline Development Companies, LLC</div>
+        <div class="contact-line">
+          <span class="em">buck@baselinedevelopment.com</span><br>
+          919 · 222 · 6063
+        </div>
+      </div>
+      <div class="contact">
+        <div class="contact-role">General Contractor</div>
+        <div class="contact-name">Richard Watson</div>
+        <div class="contact-org">Structura · PM (Supt. Tony DeLeon)</div>
+        <div class="contact-line">
+          <span class="em">richard.watson@structurainc.com</span><br>
+          210 · 882 · 0135
+        </div>
+      </div>
+      <div class="contact">
+        <div class="contact-role">PE · Tenant</div>
+        <div class="contact-name">Andrew Hill</div>
+        <div class="contact-org">Sherwin-Williams · Paint Stores Group</div>
+        <div class="contact-line">
+          <span class="em">andrew.hill@sherwin.com</span><br>
+          214 · 601 · 6181
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-brand">
+      <div class="mk"></div>
+      <div class="wm">
+        Baseline Development Companies, LLC
+        <small>Retail · Ground-Up · Build-to-Suit</small>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
