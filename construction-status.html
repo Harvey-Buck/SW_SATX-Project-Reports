@@ -204,11 +204,11 @@
   .tile[data-icon="location"] .tile-icon { border-radius: 50% 50% 50% 0; transform: rotate(-45deg); }
 
   /* =========== SCHEDULE TIMELINE =========== */
-  .timeline-rail { position: relative; height: 48px; margin: 6px 0 0; }
+  .timeline-rail { position: relative; height: 82px; margin: 6px 0 0; }
   .rail-line { position: absolute; top: 8px; left: 6px; right: 6px; height: 2px; background: var(--rule); }
   .rail-progress {
     position: absolute; top: 8px; left: 6px;
-    width: calc((100% - 12px) * 0.20); /* current schedule rail through M2 */
+    width: calc((100% - 12px) * 0.40); /* current schedule rail through M3 */
     height: 2px; background: var(--accent);
   }
   .milestones { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(6, 1fr); }
@@ -226,6 +226,7 @@
     font-family: 'IBM Plex Mono', monospace;
     font-size: 6pt; letter-spacing: 0.12em; text-transform: uppercase;
     color: var(--ink-3); margin-top: 8px; line-height: 1.3;
+    min-height: 3.9em;
   }
   .ms.current .ms-label, .ms.done .ms-label { color: var(--ink); }
   .ms-date {
@@ -269,7 +270,7 @@
   .sc-bar { height: 4px; background: rgba(255,255,255,0.12); position: relative; }
   .sc-bar::after {
     content: ""; position: absolute; left: 0; top: 0; bottom: 0;
-    width: 43%; /* schedule-time calculation: Day 61 of 143 */ background: var(--card-navy);
+    width: 57%; /* schedule-time calculation: Day 82 of 143 */ background: var(--card-navy);
   }
 
   .phases { display: flex; flex-direction: column; gap: 4px; }
@@ -444,7 +445,7 @@
       padding: 5px 6px;
     }
     .timeline-rail {
-      height: 44px;
+      height: 68px;
       margin-top: 2px;
     }
     .ms {
@@ -455,6 +456,7 @@
       font-size: 5.3pt;
       letter-spacing: 0.07em;
       line-height: 1.08;
+      min-height: 3.24em;
     }
     .ms-date {
       font-size: 7.3pt;
@@ -538,8 +540,8 @@
     </div>
     <div class="doc-meta">
       <div><strong>CONSTRUCTION STATUS</strong></div>
-      <div>Issued <span style="color:var(--ink)">09 / 11 / 2026</span></div>
-      <div style="margin-top:4px"><span class="status-pill"><span class="dot"></span>Active · Structural Framing, Utilities &amp; Sitework</span></div>
+      <div>Issued <span style="color:var(--ink)">10 / 02 / 2026</span></div>
+      <div style="margin-top:4px"><span class="status-pill"><span class="dot"></span>Active · Interior Work, Envelope &amp; Sitework</span></div>
     </div>
   </div>
 
@@ -552,7 +554,7 @@
         <span>· Ground-Up Retail Development</span>
       </div>
       <h1>Sherwin&#8209;Williams <em>Potranco</em></h1>
-      <div class="subtitle">Framing, underground utilities, and site-concrete preparation advanced this week. Below-grade damp-proofing is complete.</div>
+      <div class="subtitle">Overhead and in-wall MEP rough-in are complete, and drywall has started on one side. Partial driveways have been poured, and EIFS installation began September 28. Interior close-up, exterior finishes, and sitework continue.</div>
     </div>
     <div class="title-side">
       <div>SITE</div>
@@ -615,20 +617,20 @@
           <div class="ms-label">M1 · Earthwork Start</div>
           <div class="ms-date">Jul 13, 2026<span class="ms-status">Complete</span></div>
         </div>
-        <div class="ms current">
+        <div class="ms done">
           <div class="ms-dot"></div>
-          <div class="ms-label">M2 · Site Concrete, Utilities &amp; Framing</div>
-          <div class="ms-date">Oct 1, 2026<span class="ms-status">In Progress</span></div>
+          <div class="ms-label">M2 · Framing &amp; Underground Utilities</div>
+          <div class="ms-date">Oct 1, 2026<span class="ms-status">Complete</span></div>
         </div>
-        <div class="ms">
+        <div class="ms done">
           <div class="ms-dot"></div>
           <div class="ms-label">M3 · Building Dry-In</div>
-          <div class="ms-date">Oct 2, 2026<span class="ms-status">Not Started</span></div>
+          <div class="ms-date">Oct 2, 2026<span class="ms-status">Complete</span></div>
         </div>
-        <div class="ms">
+        <div class="ms current">
           <div class="ms-dot"></div>
           <div class="ms-label">M4 · Conditioned Building</div>
-          <div class="ms-date">Nov 2, 2026<span class="ms-status">Not Started</span></div>
+          <div class="ms-date">Nov 2, 2026<span class="ms-status">In Progress</span></div>
         </div>
         <div class="ms">
           <div class="ms-dot"></div>
@@ -658,8 +660,8 @@
         <span class="val ok">&#9679; On Track</span>
       </div>
       <div class="sc-big">
-        <span class="num">43%</span>
-        <span class="cap">Day 61<br>of 143</span>
+        <span class="num">57%</span>
+        <span class="cap">Day 82<br>of 143</span>
       </div>
         <div class="sc-bar"></div>
       </div>
@@ -670,11 +672,11 @@
           <span class="pct">100%</span>
           <span class="state">Complete</span>
         </div>
-        <div class="phase active">
+        <div class="phase done">
           <span class="no">P2</span>
           <span class="name">Building Pad &amp; U/G Utilities</span>
-          <span class="pct">Active</span>
-          <span class="state">In Progress</span>
+          <span class="pct">100%</span>
+          <span class="state">Complete</span>
         </div>
         <div class="phase active">
           <span class="no">P3</span>
@@ -688,11 +690,11 @@
           <span class="pct">Active</span>
           <span class="state">In Progress</span>
         </div>
-        <div class="phase">
+        <div class="phase active">
           <span class="no">P5</span>
-          <span class="name">Roofing &amp; Sitework</span>
-          <span class="pct">—</span>
-          <span class="state">Not Started</span>
+          <span class="name">Interior Work &amp; MEP</span>
+          <span class="pct">Active</span>
+          <span class="state">In Progress</span>
         </div>
         <div class="phase">
           <span class="no">P6</span>
@@ -713,26 +715,25 @@
     </div>
     <div class="work-cols">
       <div class="work-col left">
-        <h4><span>Completed · WE 09/11</span><span class="tag">09/11</span></h4>
+        <h4><span>This Week · WE 10/02</span><span class="tag">10/02</span></h4>
         <ul>
-          <li><span class="ck"></span><span>Light-pole bases started, and UG electrical was tied in</span><span class="dt">09/11</span></li>
-          <li><span class="ck"></span><span>Curbs and driveway prepared to place</span><span class="dt">09/11</span></li>
-          <li><span class="ck"></span><span>Underground utilities with sewer 1st followed by water</span><span class="dt">09/11</span></li>
-          <li><span class="ck"></span><span>Framing and roof-truss erection continued</span><span class="dt">09/11</span></li>
-          <li><span class="ck"></span><span>Below-grade damp-proofing is complete</span><span class="dt">09/11</span></li>
+          <li><span class="ck"></span><span>Overhead and in-wall MEP rough-in complete</span><span class="dt">WE 10/02</span></li>
+          <li><span class="ck"></span><span>Drywall started on one side</span><span class="dt">WE 10/02</span></li>
+          <li><span class="ck"></span><span>Partial driveways poured</span><span class="dt">WE 10/02</span></li>
+          <li><span class="ck"></span><span>EIFS installation started</span><span class="dt">09/28</span></li>
         </ul>
       </div>
       <div class="work-col right">
-        <h4><span>Looking Ahead · Next Two Weeks</span><span class="tag">09/12 – 09/25</span></h4>
+        <h4><span>Looking Ahead · Next Two Weeks</span><span class="tag">10/03 – 10/16</span></h4>
         <ul>
-          <li><span class="ck"></span><span>Finish underground utilities</span><span class="dt">2 WKS</span></li>
-          <li><span class="ck"></span><span>Complete framing and inspections</span><span class="dt">2 WKS</span></li>
-          <li><span class="ck"></span><span>Complete the driveway concrete pour</span><span class="dt">2 WKS</span></li>
-          <li><span class="ck"></span><span>Construct Retaining Walls No. 1 and No. 2</span><span class="dt">2 WKS</span></li>
-          <li><span class="ck"></span><span>Lay out roof penetrations and RTU curbs</span><span class="dt">2 WKS</span></li>
-          <li><span class="ck"></span><span>Advance interior framing</span><span class="dt">2 WKS</span></li>
-          <li><span class="ck"></span><span>Begin overhead and in-wall MEP rough-in</span><span class="dt">2 WKS</span></li>
-          <li><span class="ck"></span><span>Install TPO roofing</span><span class="dt">2 WKS</span></li>
+          <li><span class="ck"></span><span>Close up walls with insulation and drywall</span><span class="dt">2 WKS</span></li>
+          <li><span class="ck"></span><span>Install interior waterproofing and FRP</span><span class="dt">2 WKS</span></li>
+          <li><span class="ck"></span><span>Continue EIFS installation</span><span class="dt">2 WKS</span></li>
+          <li><span class="ck"></span><span>Install storefront and overhead door</span><span class="dt">2 WKS</span></li>
+          <li><span class="ck"></span><span>Construct dumpster masonry foundation and CMU</span><span class="dt">2 WKS</span></li>
+          <li><span class="ck"></span><span>Install ceramic tile</span><span class="dt">2 WKS</span></li>
+          <li><span class="ck"></span><span>Pour sidewalks and dumpster pad; install steel bollards and gate posts</span><span class="dt">2 WKS</span></li>
+          <li><span class="ck"></span><span>Construct retaining walls</span><span class="dt">2 WKS</span></li>
         </ul>
       </div>
     </div>
@@ -751,7 +752,7 @@
         <div class="kd-date">Jul 13, 2026</div>
       </div>
       <div class="kd">
-        <div class="kd-label">Structural Framing Complete</div>
+        <div class="kd-label">Framing &amp; U/G Utilities Milestone</div>
         <div class="kd-date">Oct 01, 2026</div>
       </div>
       <div class="kd">
